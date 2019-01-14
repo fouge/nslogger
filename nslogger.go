@@ -191,7 +191,7 @@ func readDate(b []byte, nBytes uint32) (uint32, string) {
 	return partSize, stringDate
 }
 
-func nsLoggerParse(b []byte) (string, error) {
+func nsLoggerParse(b []byte, separator string) (string, error) {
 	var fileSize = uint32(len(b))
 	var nBytes = uint32(0)
 	totalSize := BigEndian.Uint32(b[nBytes : nBytes+4])
@@ -202,7 +202,7 @@ func nsLoggerParse(b []byte) (string, error) {
 		partCount := BigEndian.Uint16(b[nBytes : nBytes+2])
 		nBytes += 2
 		// Create new empty line
-		m := logMessageString{""}
+		m := logMessageString{"", separator}
 
 		for partCount > 0 {
 			usedData := uint32(0)
@@ -244,6 +244,7 @@ func nsLoggerParse(b []byte) (string, error) {
 			} else {
 				usedData = appendValue(b, nBytes, &m)
 			}
+
 			partCount--
 			nBytes += (2 + usedData)
 		}
@@ -260,12 +261,22 @@ func nsLoggerParse(b []byte) (string, error) {
 func main() {
 	filename := os.Args[1]
 
-	data, _ := ioutil.ReadFile(filename)
-	// check(err)
+	var separator string
+
+	/** Check if separator is specified
+	 * Default separator in case no separator is specified */
+	if len(os.Args) == 3 {
+		separator = os.Args[2]
+	} else {
+		separator = ","
+	}
+
+	data, err := ioutil.ReadFile(filename)
+	check(err)
 
 	fmt.Println("Parsing file", filename, "of size", len(data), "bytes.")
 
-	parsedDataStr, err := nsLoggerParse(data)
+	parsedDataStr, err := nsLoggerParse(data, separator)
 	check(err)
 
 	outputFilename := filename + ".txt"
