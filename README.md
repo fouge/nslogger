@@ -21,10 +21,6 @@ import (
 	"github.com/fouge/nslogger"
 )
 
-func check(err error) {
-
-}
-
 func main() {
 	filename := os.Args[1]
 
