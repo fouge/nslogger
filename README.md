@@ -35,8 +35,7 @@ func main() {
 
 	data, err := ioutil.ReadFile(filename)
 	if err != nil {
-		
-    	log.Fatal(err)
+		log.Fatal(err)
 	}
 
 	fmt.Println("Parsing file", filename, "of size", len(data), "bytes.")
@@ -50,7 +49,7 @@ func main() {
 	fmt.Println("Writing log to", outputFilename)
 	err = ioutil.WriteFile(outputFilename, []byte(parsedDataStr), 0644)
 	if err != nil {
-        log.Fatal(err)
+		log.Fatal(err)
 	}
 }
 
