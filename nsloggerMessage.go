@@ -2,9 +2,6 @@ package nslogger
 
 import "fmt"
 
-import (
-	"fmt"
-)
 
 type logMessage interface {
 	addString(value string)
