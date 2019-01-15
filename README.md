@@ -68,4 +68,4 @@ $ ./go fileToParse.rawnsloggerdata " | "
 
 --
 
-More infos: https://github.com/fpillet/NSLogger
+More info: https://github.com/fpillet/NSLogger
