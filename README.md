@@ -6,9 +6,9 @@ Binary and images are not supported.
 
 ## Usage
 
-`go get github.com/fouge/nslogger-txt`
+`go get github.com/fouge/nslogger`
 
-Parsed data in plain text will be accessible in `fileToParse.rawnsloggerdata.txt`.
+Here is an example where parsed data in plain text will be accessible in `fileToParse.rawnsloggerdata.txt`.
 
 ```go
 package main
@@ -39,9 +39,10 @@ func main() {
 	}
 
 	data, err := ioutil.ReadFile(filename)
-    if err != nil {
-        log.Fatal(err)
-    }
+	if err != nil {
+		
+    	log.Fatal(err)
+	}
 
 	fmt.Println("Parsing file", filename, "of size", len(data), "bytes.")
 	
@@ -54,17 +55,18 @@ func main() {
 	fmt.Println("Writing log to", outputFilename)
 	err = ioutil.WriteFile(outputFilename, []byte(parsedDataStr), 0644)
 	if err != nil {
-		log.Fatal(err)
+        log.Fatal(err)
 	}
 }
 
 ```
 
+Build and run:
 ```
 $ go build
 
-$ ./nslogger fileToParse.rawnsloggerdata
+$ ./go fileToParse.rawnsloggerdata
 
 # With a separator specified. Default is ","
-$ ./nslogger fileToParse.rawnsloggerdata " | "
+$ ./go fileToParse.rawnsloggerdata " | "
 ```
