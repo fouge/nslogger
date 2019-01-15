@@ -1,7 +1,6 @@
-# nslogger parser
+# NSLogger Parser
 
-Very basic parser package for nslogger files. It will append text messages in a log file named after the input file.
-
+Very basic parser package for [nslogger](https://github.com/fpillet/NSLogger) files. Messages contained in the nslogger binary file are appended in a string.
 Binary and images are not supported.
 
 ## Usage
@@ -66,3 +65,7 @@ $ ./go fileToParse.rawnsloggerdata
 # With a separator specified. Default is ","
 $ ./go fileToParse.rawnsloggerdata " | "
 ```
+
+--
+
+More infos: https://github.com/fpillet/NSLogger
