@@ -1,4 +1,6 @@
-package main
+package nslogger
+
+import "fmt"
 
 import (
 	"fmt"

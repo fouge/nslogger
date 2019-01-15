@@ -1,13 +1,11 @@
-package main
+package nslogger
 
 import (
 	. "bytes"
 	. "encoding/binary"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
-	"os"
 	"time"
 )
 
@@ -191,7 +189,7 @@ func readDate(b []byte, nBytes uint32) (uint32, string) {
 	return partSize, stringDate
 }
 
-func nsLoggerParse(b []byte, separator string) (string, error) {
+func NsLoggerParse(b []byte, separator string) (string, error) {
 	var fileSize = uint32(len(b))
 	var nBytes = uint32(0)
 	totalSize := BigEndian.Uint32(b[nBytes : nBytes+4])
@@ -258,29 +256,3 @@ func nsLoggerParse(b []byte, separator string) (string, error) {
 	return res, nil
 }
 
-func main() {
-	filename := os.Args[1]
-
-	var separator string
-
-	/** Check if separator is specified
-	 * Default separator in case no separator is specified */
-	if len(os.Args) == 3 {
-		separator = os.Args[2]
-	} else {
-		separator = ","
-	}
-
-	data, err := ioutil.ReadFile(filename)
-	check(err)
-
-	fmt.Println("Parsing file", filename, "of size", len(data), "bytes.")
-
-	parsedDataStr, err := nsLoggerParse(data, separator)
-	check(err)
-
-	outputFilename := filename + ".txt"
-	fmt.Println("Writing log to", outputFilename)
-	err = ioutil.WriteFile(outputFilename, []byte(parsedDataStr), 0644)
-	check(err)
-}
